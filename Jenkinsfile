@@ -8,8 +8,8 @@ pipeline {
         }
         stage('Build stage') {
             steps {
-                sh 'docker build -t nodejs-todolist .'
-                sh 'docker run -d --name jenkinsCor -p 8080:8080 nodejs-todolist '
+                sh 'docker build -t nodejs-todolist1 .'
+                sh 'docker run -d --name abc1112222 -p 8081:8080 nodejs-todolist1 '
             }
         }
     }
