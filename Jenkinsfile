@@ -9,7 +9,8 @@ pipeline {
         stage('Build stage') {
             steps {
                 sh 'docker build -t nodejs-todolist .'
-                sh 'docker run -d --name jenkinsContainer -p 8080:8080 nodejs-todolist '
+                sh 'docker rm -f jenkinsContainer'
+                sh 'docker run --it  --name jenkinsContainer -p 8080:8080 nodejs-todolist '
             }
         }
     }
