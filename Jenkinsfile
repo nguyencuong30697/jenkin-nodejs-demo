@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build stage') {
             steps {
-                sh 'docker build -t nodejs-todolist .'
+                sh 'sudo docker build -t nodejs-todolist .'
             }
         }
     }
