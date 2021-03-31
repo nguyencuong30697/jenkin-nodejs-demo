@@ -8,8 +8,7 @@ pipeline {
         }
         stage('Build stage') {
             steps {
-                sh 'docker build -t nodejs-todolist3 .'
-                sh 'docker run --rm -p 8084:8080 nodejs-todolist3 '
+                sh 'docker-compose up -d'
             }
         }
     }
