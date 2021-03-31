@@ -14,7 +14,7 @@ services:
       - db
     image: handuy1992/node-todo:latest
     ports:
-      - "8181:8080"
+      - "8183:8080"
     restart: always
 
 volumes:
