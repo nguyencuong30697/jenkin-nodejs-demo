@@ -8,6 +8,7 @@ pipeline {
         }
         stage('Build stage') {
             steps {
+                sh 'docker build -t docker-nodejs-jen .'
                 sh 'docker-compose up -d'
             }
         }
