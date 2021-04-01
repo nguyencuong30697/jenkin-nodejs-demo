@@ -27,15 +27,15 @@ pipeline {
                 }
             }
         }
-        stage('Run Docker Image') {
-            steps{
-                sh "docker run --rm -p 8180:8080 $registry:$BUILD_NUMBER"
-            }
-        }
-        // stage('Remove Unused Docker Image') {
+        // stage('Run Docker Image') {
         //     steps{
-        //         sh "docker rmi $registry:$BUILD_NUMBER"
+        //         sh "docker run --rm -p 8180:8080 $registry:$BUILD_NUMBER"
         //     }
         // }
+        stage('Remove Unused Docker Image') {
+            steps{
+                sh "docker rmi $registry:$BUILD_NUMBER"
+            }
+        }
     }
 }
