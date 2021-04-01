@@ -2,7 +2,7 @@ pipeline {
     environment {
         registry = "cuongnm3061997/jenkins-demo"
         registryCredential = "docker-hub-cres"
-        dockerImage = ''
+        dockerImage = 'cuongnm3061997'
     }
     agent { label 'dev2' }
     stages {
@@ -11,17 +11,16 @@ pipeline {
                 git 'https://github.com/nguyencuong30697/jenkin-nodejs-demo.git'
             }
         }
-        stage('Building image') {
-            steps{
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
+        stage('Build stage') {
+            steps {
+                sh 'docker build -t cuongnm3061997/docker-nodejs-jen .'
+                // sh 'docker-compose up -d'
             }
         }
-        stage('Deploy Image') {
-            steps{
+        stage('DockerHub stage') {
+            steps {
                 script {
-                    docker.withRegistry( '', registryCredential ) {
+                    docker.withRegistry('', registryCredential){
                         dockerImage.push()
                     }
                 }
