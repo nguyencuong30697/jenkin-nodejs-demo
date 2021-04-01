@@ -1,9 +1,4 @@
 pipeline {
-    environment {
-        registry = "cuongnm3061997/jenkins-demo"
-        registryCredential = "docker-hub-cres"
-        dockerImage = 'cuongnm3061997'
-    }
     agent { label 'dev2' }
     stages {
         stage('Clone stage') {
@@ -18,12 +13,8 @@ pipeline {
             }
         }
         stage('DockerHub stage') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential){
-                        dockerImage.push()
-                    }
-                }
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-cres'){
+                dockerImage.push()
             }
         }
     }
