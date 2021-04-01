@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = "cuongnm3061997/jenkins-demo"
+        registryCredential = "docker-hub-cres"
+        dockerImage = ''
+    }
     agent { label 'dev2' }
     stages {
         stage('Clone stage') {
@@ -8,8 +13,18 @@ pipeline {
         }
         stage('Build stage') {
             steps {
-                sh 'docker build -t docker-nodejs-jen .'
-                sh 'docker-compose up -d'
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }
+        stage('DockerHub stage') {
+            steps {
+                script {
+                    docker.withRegistry('', registryCredential){
+                        dockerImage.push()
+                    }
+                }
             }
         }
     }
