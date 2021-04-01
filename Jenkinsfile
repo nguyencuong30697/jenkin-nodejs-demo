@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "cuongnm3061997/jenkins-demo"
+        registry = "cuongnm3061997/jenkins-demo-1"
         registryCredential = "docker-keys"
         dockerImage = ''
     }
@@ -14,11 +14,11 @@ pipeline {
         stage('Build stage') {
             steps{
                 script {
-                dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
-        stage('DockerHub stage') {
+        stage('Push Image stage') {
             steps {
                 script {
                     docker.withRegistry( '', registryCredential ) {
@@ -27,5 +27,15 @@ pipeline {
                 }
             }
         }
+        stage('Run Docker Image') {
+            steps{
+                sh "docker run --rm -p 8180:8080 $registry:$BUILD_NUMBER"
+            }
+        }
+        // stage('Remove Unused Docker Image') {
+        //     steps{
+        //         sh "docker rmi $registry:$BUILD_NUMBER"
+        //     }
+        // }
     }
 }
