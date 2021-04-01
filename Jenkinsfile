@@ -1,7 +1,7 @@
 pipeline {
     environment {
         registry = "cuongnm3061997/jenkins-demo"
-        registryCredential = "docker-hub-cres"
+        registryCredential = "docker-keys"
         dockerImage = ''
     }
     agent { label 'dev2' }
