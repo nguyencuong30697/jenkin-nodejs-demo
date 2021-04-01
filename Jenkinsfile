@@ -19,10 +19,8 @@ pipeline {
         }
         stage('DockerHub stage') {
             steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', "docker-hub-cres"){
-                        dockerImage.push()
-                    }
+                docker.withRegistry('https://registry.hub.docker.com', "docker-hub-cres"){
+                    dockerImage.push()
                 }
             }
         }
