@@ -18,24 +18,24 @@ pipeline {
                 }
             }
         }
-        stage('Push Image stage') {
-            steps {
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
+        // stage('Push Image stage') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry( '', registryCredential ) {
+        //                 dockerImage.push()
+        //             }
+        //         }
+        //     }
+        // }
         // stage('Run Docker Image') {
         //     steps{
         //         sh "docker run --rm -p 8180:8080 $registry:$BUILD_NUMBER"
         //     }
         // }
-        stage('Remove Unused Docker Image') {
-            steps{
-                sh "docker rmi $registry:$BUILD_NUMBER"
-            }
-        }
+        // stage('Remove Unused Docker Image') {
+        //     steps{
+        //         sh "docker rmi $registry:$BUILD_NUMBER"
+        //     }
+        // }
     }
 }
