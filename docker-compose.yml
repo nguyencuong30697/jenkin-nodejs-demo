@@ -12,9 +12,9 @@ services:
   nodejsdemo:
     depends_on:
       - db
-    image: docker-nodejs-jen
+    image: nodejsnhe
     ports:
-      - "8184:8080"
+      - "8185:8080"
     restart: always
 
 volumes:

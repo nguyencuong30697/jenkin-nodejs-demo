@@ -12,11 +12,22 @@ pipeline {
                 git branch: 'dev', url: 'https://github.com/nguyencuong30697/jenkin-nodejs-demo.git'
             }
         }
+        // stage('Build stage') {
+        //     steps{
+        //         script {
+        //             dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        //         }
+        //     }
+        // }
         stage('Build stage') {
             steps{
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
+                sh 'docker build -t nodejsnhe .'
+                sh 'docker-compose up -d'
+            }
+        }
+        stage('Test stage') {
+            steps {
+                sh label: '', script: 'export URL=http://13.229.243.239:8185 && npm install --save-dev codeceptjs@2.6.10 puppeteer && npx codeceptjs run --steps'
             }
         }
         // stage('Push Image stage') {
