@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Clone stage') {
             steps {
-                git 'https://github.com/nguyencuong30697/jenkin-nodejs-demo.git'
+                // git 'https://github.com/nguyencuong30697/jenkin-nodejs-demo.git'
+                git branch: 'dev', url: 'https://github.com/nguyencuong30697/jenkin-nodejs-demo.git'
             }
         }
         stage('Build stage') {
