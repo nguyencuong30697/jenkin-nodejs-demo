@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 app.post("/addTask", (req, res) => {
   const { textTodo } = req.body;
   db("task")
-    .inserts({ task: textTodo })
+    .insert({ task: textTodo })
     .returning("*")
     .then((todo) => {
       res.redirect("/");
