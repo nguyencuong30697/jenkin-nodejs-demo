@@ -3,6 +3,7 @@ pipeline {
         registry = "cuongnm3061997/jenkins-demo-1"
         registryCredential = "docker-keys"
         dockerImage = ''
+        scannerHome = tool 'sonarscan'
     }
     agent { label 'dev2' }
     stages {
@@ -19,17 +20,28 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Build stage') {
+        stage('Check Project stage') {
             steps{
-                sh 'docker build -t nodejsnhe .'
-                sh 'docker-compose up -d'
+                withSonarQubeEnv('sonarscan') { sh "${scannerHome}/bin/sonar-scanner"
+                }
             }
         }
-        stage('Test stage') {
-            steps {
-                sh label: '', script: 'export URL=http://13.229.243.239:8185 && npm install --save-dev codeceptjs@2.6.10 puppeteer && npx codeceptjs run --steps'
+        stage('waitForQualityGate stage') {
+            steps{
+                waitForQualityGate abortPipeline: true
             }
         }
+        // stage('Build stage') {
+        //     steps{
+        //         sh 'docker build -t nodejsnhe .'
+        //         sh 'docker-compose up -d'
+        //     }
+        // }
+        // stage('Test stage') {
+        //     steps {
+        //         sh label: '', script: 'export URL=http://13.229.243.239:8185 && npm install --save-dev codeceptjs@2.6.10 puppeteer && npx codeceptjs run --steps'
+        //     }
+        // }
         // stage('Push Image stage') {
         //     steps {
         //         script {
