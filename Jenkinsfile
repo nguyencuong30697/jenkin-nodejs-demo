@@ -22,7 +22,7 @@ pipeline {
         // }
         stage('Check Project stage') {
             steps{
-                withSonarQubeEnv('sonarscan') { sh "${scannerHome}/bin/sonar-scanner"
+                withSonarQubeEnv('nodejs_demo') { sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
