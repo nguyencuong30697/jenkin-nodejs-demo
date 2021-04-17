@@ -4,7 +4,7 @@ pipeline {
         registryCredential = "docker-keys"
         dockerImage = ''
     }
-    agent { label 'dev2' }
+    // agent { label 'dev2' }
     stages {
         stage('Clone stage') {
             steps {
